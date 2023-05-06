@@ -51,11 +51,14 @@ class InlineText extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                value,
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  color: color ?? Colors.black87,
+              Flexible(
+                child: Text(
+                  value,
+                  textAlign: TextAlign.right,
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: color ?? Colors.black87,
+                  ),
                 ),
               ),
             ],

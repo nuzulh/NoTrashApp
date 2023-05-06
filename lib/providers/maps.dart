@@ -8,16 +8,24 @@ class Maps with ChangeNotifier {
   final Completer<GoogleMapController> _completer =
       Completer<GoogleMapController>();
 
+  static const DEFAULT_POSITION = LatLng(5.573447631959232, 95.354061037181);
+  static const DEFAULT_ZOOM = 18.0;
+
   Set<Marker> _markers = Set<Marker>();
-  CameraPosition _cameraPosition = CameraPosition(
-    target: LatLng(5.573447631959232, 95.354061037181),
-    zoom: 18,
+  CameraPosition _currentLocation = CameraPosition(
+    target: DEFAULT_POSITION,
+    zoom: DEFAULT_ZOOM,
+  );
+  CameraPosition _myLocation = CameraPosition(
+    target: DEFAULT_POSITION,
+    zoom: DEFAULT_ZOOM,
   );
   bool _loading = false;
 
   Completer<GoogleMapController> get completer => _completer;
   Set<Marker> get markers => _markers;
-  CameraPosition get cameraPosition => _cameraPosition;
+  CameraPosition get currentLocation => _currentLocation;
+  CameraPosition get myLocation => _myLocation;
   bool get loading => _loading;
 
   void startLoading() {
@@ -33,7 +41,12 @@ class Maps with ChangeNotifier {
   void onStart() async {
     startLoading();
     Position currentPosition = await getGeoLocationPosition();
-    setMarkers(LatLng(currentPosition.latitude, currentPosition.longitude));
+    _myLocation = currentLocation;
+    notifyListeners();
+    setMarkers(
+      LatLng(currentPosition.latitude, currentPosition.longitude),
+      'myLocation',
+    );
     animateCamera(CameraPosition(
       target: LatLng(currentPosition.latitude, currentPosition.longitude),
       zoom: 18,
@@ -66,10 +79,10 @@ class Maps with ChangeNotifier {
     );
   }
 
-  void setMarkers(LatLng position) {
+  void setMarkers(LatLng position, String markerId) {
     _markers.add(
       Marker(
-        markerId: MarkerId('marker'),
+        markerId: MarkerId(markerId),
         position: position,
       ),
     );
@@ -79,7 +92,12 @@ class Maps with ChangeNotifier {
   void animateCamera(CameraPosition _camPosition) async {
     final GoogleMapController controller = await _completer.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_camPosition));
-    _cameraPosition = _camPosition;
+    _currentLocation = _camPosition;
+    notifyListeners();
+  }
+
+  void setCurrentLocation(CameraPosition _camPosition) async {
+    _currentLocation = _camPosition;
     notifyListeners();
   }
 }

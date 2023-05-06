@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:no_trash/helpers/consts.dart';
 import 'package:no_trash/providers/maps.dart';
 import 'package:no_trash/providers/report.dart';
 import 'package:no_trash/widgets/header.dart';
@@ -31,12 +32,18 @@ class LocationPicker extends StatelessWidget {
                   children: [
                     GoogleMap(
                       mapType: MapType.normal,
-                      initialCameraPosition: value.cameraPosition,
+                      initialCameraPosition: value.myLocation,
                       markers: value.markers,
+                      myLocationButtonEnabled: true,
+                      zoomGesturesEnabled: true,
+                      rotateGesturesEnabled: true,
                       onMapCreated: (GoogleMapController controller) {
                         try {
                           value.completer.complete(controller);
                         } catch (_) {}
+                      },
+                      onCameraMove: (CameraPosition position) {
+                        value.setCurrentLocation(position);
                       },
                     ),
                     value.loading
@@ -44,7 +51,16 @@ class LocationPicker extends StatelessWidget {
                             color: Colors.black38,
                             child: Loading(),
                           )
-                        : SizedBox.shrink(),
+                        : Container(
+                            padding: EdgeInsets.only(bottom: 50),
+                            child: Center(
+                              child: Icon(
+                                Icons.location_pin,
+                                color: kPrimaryColor,
+                                size: 38,
+                              ),
+                            ),
+                          ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 80,
@@ -54,10 +70,10 @@ class LocationPicker extends StatelessWidget {
                         label: 'Pilih',
                         onPressed: () {
                           if (!value.loading) {
-                            report.setMap(value.cameraPosition.target.latitude
+                            report.setMap(value.currentLocation.target.latitude
                                     .toString() +
                                 ', ' +
-                                value.cameraPosition.target.longitude
+                                value.currentLocation.target.longitude
                                     .toString());
                             Navigator.pop(context);
                           }

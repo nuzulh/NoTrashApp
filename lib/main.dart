@@ -8,7 +8,7 @@ import 'package:no_trash/providers/report.dart';
 import 'package:no_trash/screens/auth/login.dart';
 import 'package:no_trash/screens/auth/otp_verification.dart';
 import 'package:no_trash/screens/auth/register.dart';
-import 'package:no_trash/screens/maps.dart';
+import 'package:no_trash/screens/reporter/location_picker.dart';
 import 'package:no_trash/screens/officer/index.dart';
 import 'package:no_trash/screens/reporter/index.dart';
 import 'package:no_trash/screens/reporter/report_form.dart';

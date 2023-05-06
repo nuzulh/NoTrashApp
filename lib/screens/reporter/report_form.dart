@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:no_trash/helpers/consts.dart';
 import 'package:no_trash/providers/report.dart';
-import 'package:no_trash/screens/maps.dart';
 import 'package:no_trash/widgets/header.dart';
 import 'package:no_trash/widgets/inline_text.dart';
 import 'package:no_trash/widgets/layout.dart';
@@ -13,6 +12,7 @@ import 'package:no_trash/widgets/primary_button.dart';
 import 'package:no_trash/widgets/secondary_button.dart';
 import 'package:no_trash/widgets/text_input.dart';
 import 'package:provider/provider.dart';
+import 'package:no_trash/screens/reporter/location_picker.dart';
 
 class ReportForm extends StatelessWidget {
   const ReportForm({super.key});
