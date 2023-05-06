@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:no_trash/helpers/consts.dart';
 import 'package:no_trash/helpers/utils.dart';
 import 'package:no_trash/models/report.dart';
 import 'package:no_trash/models/user.dart';
 import 'package:no_trash/providers/auth.dart';
 import 'package:no_trash/providers/report.dart';
+import 'package:no_trash/screens/officer/location.dart';
 import 'package:no_trash/widgets/header.dart';
 import 'package:no_trash/widgets/inline_text.dart';
 import 'package:no_trash/widgets/layout.dart';
@@ -145,7 +147,34 @@ class ReportDetail extends StatelessWidget {
             SecondaryButton(
               label: 'Lihat lokasi',
               icon: Icons.location_on,
-              onPressed: () {},
+              onPressed: () {
+                try {
+                  final double latitude =
+                      double.parse(report.map.split(', ')[0]);
+                  final double longitude =
+                      double.parse(report.map.split(', ')[1]);
+
+                  Navigator.pushNamed(
+                    context,
+                    LocationView.routeName,
+                    arguments: CameraPosition(
+                      target: LatLng(latitude, longitude),
+                      zoom: 18.0,
+                    ),
+                  );
+                } catch (_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Row(
+                        children: const [
+                          Icon(Icons.warning_rounded, color: Colors.white),
+                          Text(' Lokasi sampah tidak tersedia'),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+              },
             ),
             auth.currentUser.role == 'Petugas' && !report.confirmed
                 ? Consumer<Report>(

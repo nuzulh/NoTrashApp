@@ -228,7 +228,7 @@ class Report with ChangeNotifier {
             content: Row(
               children: const [
                 Icon(Icons.warning_rounded, color: Colors.white),
-                Text('Tidak ada foto yang diunggah'),
+                Text(' Tidak ada foto yang diunggah'),
               ],
             ),
           ),

@@ -46,6 +46,20 @@ class LocationPicker extends StatelessWidget {
                         value.setCurrentLocation(position);
                       },
                     ),
+                    Positioned(
+                      top: 10,
+                      right: 10,
+                      child: FloatingActionButton(
+                        backgroundColor: Colors.redAccent,
+                        onPressed: () {
+                          value.animateCamera(value.myLocation);
+                        },
+                        child: Icon(
+                          Icons.my_location,
+                          size: 28,
+                        ),
+                      ),
+                    ),
                     value.loading
                         ? Container(
                             color: Colors.black38,
