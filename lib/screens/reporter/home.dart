@@ -38,6 +38,13 @@ class ReporterHome extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black12,
+                            blurRadius: 8,
+                            offset: Offset(1, 2),
+                          ),
+                        ],
                       ),
                     ),
                   ),

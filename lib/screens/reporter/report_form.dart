@@ -25,9 +25,10 @@ class ReportForm extends StatelessWidget {
     return Scaffold(
       backgroundColor: kBgColor,
       body: Layout(
-        header: const Header(
+        header: Header(
           label: 'Buat laporan',
           icon: Icons.post_add_rounded,
+          onBack: () => report.resetForm(),
         ),
         child: Column(
           children: [

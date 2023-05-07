@@ -32,8 +32,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   dropdown_button2: ^1.9.3
   file_picker: ^5.2.5
-  firebase_auth: ^4.2.9
-  firebase_core: ^2.7.0
+  firebase_auth: any
+  firebase_core: any
   firebase_storage: ^11.0.14
   flutter:
     sdk: flutter
@@ -41,9 +41,11 @@ dependencies:
   geolocator: ^9.0.2
   google_fonts: ^4.0.3
   google_maps_flutter: ^2.2.6
+  intl: ^0.18.1
   maps_launcher: ^2.2.0
   pinput: ^2.2.31
   provider: ^6.0.5
+  url_launcher: ^6.1.10
   uuid: ^3.0.7
 
 dev_dependencies:

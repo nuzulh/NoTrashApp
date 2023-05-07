@@ -28,7 +28,7 @@ class InlineText extends StatelessWidget {
                   label,
                   style: GoogleFonts.poppins(
                     fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
@@ -48,7 +48,7 @@ class InlineText extends StatelessWidget {
                 label,
                 style: GoogleFonts.poppins(
                   fontSize: 15,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               Flexible(

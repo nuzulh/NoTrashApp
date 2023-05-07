@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:no_trash/helpers/consts.dart';
 import 'package:no_trash/providers/auth.dart';
+import 'package:no_trash/providers/common.dart';
 import 'package:no_trash/providers/report.dart';
 import 'package:no_trash/widgets/layout.dart';
 import 'package:no_trash/widgets/report_card.dart';
@@ -14,10 +15,12 @@ class OfficerHome extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = Provider.of<Auth>(context, listen: false);
     final report = Provider.of<Report>(context, listen: false);
+    final common = Provider.of<Common>(context, listen: false);
 
     Future.delayed(const Duration(milliseconds: 100)).then((_) {
       auth.onStart();
       report.onStart();
+      common.onStart();
     });
 
     return Layout(
@@ -36,6 +39,13 @@ class OfficerHome extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black12,
+                            blurRadius: 8,
+                            offset: Offset(1, 2),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -61,9 +71,11 @@ class OfficerHome extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(Icons.date_range_outlined),
-              Text(
-                ' Sabtu, 25-02-2023 16:11',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+              Consumer<Common>(
+                builder: (context, value, child) => Text(
+                  ' ${value.currentTime ?? ''}',
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                ),
               ),
             ],
           ),

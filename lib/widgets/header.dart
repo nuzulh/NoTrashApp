@@ -5,11 +5,13 @@ import 'package:no_trash/helpers/consts.dart';
 class Header extends StatelessWidget {
   final String label;
   final IconData icon;
+  final void Function()? onBack;
 
   const Header({
     super.key,
     required this.label,
     required this.icon,
+    this.onBack,
   });
 
   @override
@@ -34,7 +36,10 @@ class Header extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                if (onBack != null) onBack!();
+                Navigator.pop(context);
+              },
               icon: const Icon(
                 Icons.chevron_left,
                 size: 32,

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:no_trash/helpers/consts.dart';
 import 'package:no_trash/providers/auth.dart';
+import 'package:no_trash/providers/common.dart';
 import 'package:no_trash/providers/maps.dart';
 import 'package:no_trash/providers/navigation.dart';
 import 'package:no_trash/providers/report.dart';
@@ -37,6 +38,7 @@ class NoTrash extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Report()),
         ChangeNotifierProvider(create: (context) => Navigation()),
         ChangeNotifierProvider(create: (context) => Maps()),
+        ChangeNotifierProvider(create: (context) => Common()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
