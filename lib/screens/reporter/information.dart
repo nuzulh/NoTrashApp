@@ -42,6 +42,31 @@ class Information extends StatelessWidget {
               }
             },
           ),
+          InlineText(label: 'Berita', value: ''),
+          FutureBuilder<List<InformationModel>>(
+            future: Common().getArticles(context),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final List<InformationModel> knowledges =
+                    snapshot.data!.where((x) => x.category == 'news').toList();
+
+                return Container(
+                  height: 280,
+                  padding: const EdgeInsets.only(bottom: 14, top: 6),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: knowledges.length,
+                    itemBuilder: (context, index) => InformationCard(
+                      information: knowledges[index],
+                    ),
+                  ),
+                );
+              } else {
+                return const Loading();
+              }
+            },
+          ),
         ],
       ),
     );
