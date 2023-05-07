@@ -43,6 +43,13 @@ class Report with ChangeNotifier {
       .where(
           (x) => x.confirmed && x.reporter.id == firebaseAuth.currentUser!.uid)
       .toList();
+  List<ReportModel> get myHistoryReports => _reports
+      .where((x) =>
+          x.confirmed && x.confirmedBy?.id == firebaseAuth.currentUser!.uid)
+      .toList()
+    ..sort((a, b) =>
+        b.confirmedDate!.toDate().compareTo(a.confirmedDate!.toDate()));
+
   String get map => _map;
   bool get loading => _loading;
   String get error => _error;

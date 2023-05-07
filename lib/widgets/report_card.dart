@@ -62,6 +62,7 @@ class ReportCard extends StatelessWidget {
                             children: [
                               Text(
                                 snapshot.data!.name,
+                                overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontSize: 10,
@@ -69,6 +70,7 @@ class ReportCard extends StatelessWidget {
                               ),
                               Text(
                                 Auth().countryCode + snapshot.data!.phoneNumber,
+                                overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontSize: 10,
@@ -91,23 +93,22 @@ class ReportCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Flexible(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      const Icon(Icons.location_on_sharp, color: Colors.white),
-                      Text(
-                        report.address,
-                        style: GoogleFonts.poppins(
-                          fontSize: 11,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
+              SizedBox(
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    const Icon(Icons.location_on_sharp, color: Colors.white),
+                    Text(
+                      report.address,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        fontSize: 11,
+                        color: Colors.white,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -134,16 +134,20 @@ class OfficerHome extends StatelessWidget {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              child: Consumer<Report>(
-                builder: (context, value, child) => Row(
-                  children: value.unconfirmedReports
-                      .map((report) => ReportCard(report: report))
-                      .toList(),
+          Consumer<Report>(
+            // builder: (context, value, child) => Row(
+            //   children: value.unconfirmedReports
+            //       .map((report) => ReportCard(report: report))
+            //       .toList(),
+            // ),
+            builder: (context, value, child) => SizedBox(
+              height: 200,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemCount: value.unconfirmedReports.length,
+                itemBuilder: (context, index) => ReportCard(
+                  report: value.unconfirmedReports[index],
                 ),
               ),
             ),

@@ -23,27 +23,25 @@ class ReportList extends StatelessWidget {
           label: 'Daftar Laporan',
           icon: Icons.list_alt_rounded,
         ),
-        child: Column(
-          children: [
-            Column(
-              children: reports
-                  .map((report) => SummaryCard(
-                        label: formattedDate(report.reportedDate),
-                        height: 68,
-                        icon: report.confirmed
-                            ? Icons.check_circle
-                            : Icons.pending_actions_rounded,
-                        onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            ReportDetail.routeName,
-                            arguments: report,
-                          );
-                        },
-                      ))
-                  .toList(),
-            ),
-          ],
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: reports.length,
+          itemBuilder: (context, index) => SummaryCard(
+            label: formattedDate(reports[index].reportedDate),
+            height: 68,
+            byLabel: 'Dilapor pada',
+            icon: reports[index].confirmed
+                ? Icons.check_circle
+                : Icons.pending_actions_rounded,
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                ReportDetail.routeName,
+                arguments: reports[index],
+              );
+            },
+          ),
         ),
       ),
     );

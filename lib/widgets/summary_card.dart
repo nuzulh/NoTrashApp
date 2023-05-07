@@ -6,6 +6,7 @@ class SummaryCard extends StatelessWidget {
   final String label;
   final Function() onPressed;
   final double height;
+  final String? byLabel;
   final String? value;
   final IconData? icon;
 
@@ -13,6 +14,7 @@ class SummaryCard extends StatelessWidget {
     super.key,
     required this.label,
     required this.onPressed,
+    this.byLabel,
     this.height = 118,
     this.value,
     this.icon,
@@ -46,13 +48,28 @@ class SummaryCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              label,
-              style: GoogleFonts.poppins(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                byLabel != null
+                    ? Text(
+                        byLabel ?? '',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: Colors.white54,
+                        ),
+                      )
+                    : SizedBox.shrink(),
+                Text(
+                  label,
+                  style: GoogleFonts.poppins(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
             icon != null
                 ? Icon(icon, color: Colors.white)
