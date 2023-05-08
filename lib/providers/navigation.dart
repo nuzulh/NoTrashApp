@@ -3,7 +3,7 @@ import 'package:no_trash/screens/officer/history.dart';
 import 'package:no_trash/screens/officer/home.dart';
 import 'package:no_trash/screens/reporter/home.dart';
 import 'package:no_trash/screens/reporter/information.dart';
-import 'package:no_trash/screens/settings.dart';
+import 'package:no_trash/screens/account.dart';
 
 class Navigation with ChangeNotifier {
   // -------------------- REPORTER NAVIGATIONS --------------------

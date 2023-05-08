@@ -6,12 +6,16 @@ class PrimaryButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
   final IconData? icon;
+  final Color? color;
+  final Color? backgroundColor;
 
   const PrimaryButton({
     super.key,
     required this.label,
     required this.onPressed,
     this.icon,
+    this.color,
+    this.backgroundColor,
   });
 
   @override
@@ -26,7 +30,7 @@ class PrimaryButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          backgroundColor: kPrimaryColor,
+          backgroundColor: backgroundColor ?? kPrimaryColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +43,10 @@ class PrimaryButton extends StatelessWidget {
                 : const SizedBox.shrink(),
             Text(
               label,
-              style: GoogleFonts.poppins(fontSize: 16),
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                color: color ?? Colors.white,
+              ),
             ),
           ],
         ),

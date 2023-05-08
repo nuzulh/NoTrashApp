@@ -25,8 +25,8 @@ class ReporterIndex extends StatelessWidget {
             icon: Icon(Icons.widgets_rounded),
           ),
           BottomNavigationBarItem(
-            label: 'Settings',
-            icon: Icon(Icons.settings),
+            label: 'Account',
+            icon: Icon(Icons.account_circle_rounded),
           ),
         ],
         showSelectedLabels: false,

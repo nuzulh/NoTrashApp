@@ -6,12 +6,16 @@ class SecondaryButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
   final IconData? icon;
+  final Color? color;
+  final Color? backgroundColor;
 
   const SecondaryButton({
     super.key,
     required this.label,
     required this.onPressed,
     this.icon,
+    this.color,
+    this.backgroundColor,
   });
 
   @override
@@ -26,8 +30,8 @@ class SecondaryButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          foregroundColor: kPrimaryColor,
-          side: const BorderSide(color: kPrimaryColor, width: 2),
+          foregroundColor: color ?? kPrimaryColor,
+          side: BorderSide(color: backgroundColor ?? kPrimaryColor, width: 2),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -25,8 +25,8 @@ class OfficerIndex extends StatelessWidget {
             icon: Icon(Icons.history),
           ),
           BottomNavigationBarItem(
-            label: 'Settings',
-            icon: Icon(Icons.settings),
+            label: 'Account',
+            icon: Icon(Icons.account_circle_rounded),
           ),
         ],
         showSelectedLabels: false,

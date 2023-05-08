@@ -14,34 +14,34 @@ class ReportCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          ReportDetail.routeName,
-          arguments: report,
-        );
-      },
-      child: Container(
-        width: 152,
-        height: 198,
-        margin: const EdgeInsets.only(right: 10, bottom: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 12,
-              offset: Offset(2, 4),
-            ),
-          ],
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment(1, 6),
-            stops: [0.1, 1],
-            colors: [kPrimaryColor, kBgColor],
+    return Container(
+      width: 152,
+      height: 198,
+      margin: const EdgeInsets.only(right: 10, bottom: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 12,
+            offset: Offset(2, 4),
           ),
+        ],
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment(1, 6),
+          stops: [0.1, 1],
+          colors: [kPrimaryColor, kBgColor],
         ),
+      ),
+      child: InkWell(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            ReportDetail.routeName,
+            arguments: report,
+          );
+        },
         child: Padding(
           padding: const EdgeInsets.all(14),
           child: Column(

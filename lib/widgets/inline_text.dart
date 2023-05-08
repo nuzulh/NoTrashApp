@@ -3,16 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 class InlineText extends StatelessWidget {
   final String label;
-  final String value;
+  final String? value;
   final bool isNewLine;
   final Color? color;
+  final Widget? child;
 
   const InlineText({
     super.key,
     required this.label,
-    required this.value,
+    this.value,
     this.isNewLine = false,
     this.color,
+    this.child,
   });
 
   @override
@@ -29,12 +31,14 @@ class InlineText extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
+                    color: color ?? Colors.black,
                   ),
                 ),
                 Text(
-                  value,
+                  value ?? '',
                   style: GoogleFonts.poppins(
                     fontSize: 15,
+                    color: color ?? Colors.black87,
                   ),
                 ),
               ],
@@ -49,18 +53,21 @@ class InlineText extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
+                  color: color ?? Colors.black,
                 ),
               ),
-              Flexible(
-                child: Text(
-                  value,
-                  textAlign: TextAlign.right,
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: color ?? Colors.black87,
-                  ),
-                ),
-              ),
+              child != null
+                  ? child!
+                  : Flexible(
+                      child: Text(
+                        value ?? '',
+                        textAlign: TextAlign.right,
+                        style: GoogleFonts.poppins(
+                          fontSize: 15,
+                          color: color ?? Colors.black87,
+                        ),
+                      ),
+                    ),
             ],
           );
   }
