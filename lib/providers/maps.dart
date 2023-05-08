@@ -41,16 +41,19 @@ class Maps with ChangeNotifier {
   void onStart() async {
     startLoading();
     Position currentPosition = await getGeoLocationPosition();
-    _myLocation = currentLocation;
+    CameraPosition currentCameraPosition = CameraPosition(
+      target: LatLng(currentPosition.latitude, currentPosition.longitude),
+      zoom: DEFAULT_ZOOM,
+    );
+
+    _myLocation = currentCameraPosition;
     notifyListeners();
     setMarkers(
       LatLng(currentPosition.latitude, currentPosition.longitude),
       'myLocation',
     );
-    animateCamera(CameraPosition(
-      target: LatLng(currentPosition.latitude, currentPosition.longitude),
-      zoom: 18,
-    ));
+    animateCamera(currentCameraPosition);
+    setCurrentLocation(currentCameraPosition);
     stopLoading();
   }
 
@@ -92,8 +95,6 @@ class Maps with ChangeNotifier {
   void animateCamera(CameraPosition _camPosition) async {
     final GoogleMapController controller = await _completer.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_camPosition));
-    _currentLocation = _camPosition;
-    notifyListeners();
   }
 
   void setCurrentLocation(CameraPosition _camPosition) async {
