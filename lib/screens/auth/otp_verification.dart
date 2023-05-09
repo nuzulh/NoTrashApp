@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:no_trash/helpers/consts.dart';
 import 'package:no_trash/providers/auth.dart';
+import 'package:no_trash/widgets/header.dart';
 import 'package:no_trash/widgets/primary_button.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
@@ -17,55 +18,61 @@ class OtpVerification extends StatelessWidget {
     return Scaffold(
       backgroundColor: kBgColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Verifikasi',
-                  style: GoogleFonts.poppins(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w600,
+        child: Column(
+          children: [
+            Header(label: 'Verifikasi PIN', icon: Icons.pin),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 18),
+              child: Column(
+                children: [
+                  Text(
+                    'Silahkan masukkan PIN 6-digit yang dikirim ke',
+                    style: GoogleFonts.poppins(),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 48),
-                  child: Column(
+                  Consumer<Auth>(
+                    builder: (context, auth, child) => Text(
+                      auth.currentUser.email,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32),
+                    child: Pinput(
+                      length: 6,
+                      onCompleted: (value) {
+                        auth.setOtp(value);
+                      },
+                      showCursor: true,
+                    ),
+                  ),
+                  Row(
                     children: [
-                      const SizedBox(height: 18),
                       Text(
-                        'Silahkan masukkan kode yang dikirim ke nomor',
+                        'Tidak menerima email?',
                         style: GoogleFonts.poppins(),
                       ),
-                      const SizedBox(height: 18),
-                      Consumer<Auth>(
-                        builder: (context, auth, child) => Text(
-                          auth.countryCode + auth.phoneNumber.text,
+                      InkWell(
+                        onTap: () {},
+                        child: Text(
+                          ' Minta PIN baru',
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
+                            color: kPrimaryColor,
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 18),
-                      Pinput(
-                        length: 6,
-                        onCompleted: (value) {
-                          auth.setOtp(value);
-                        },
-                        showCursor: true,
-                      ),
+                      )
                     ],
                   ),
-                ),
-                PrimaryButton(
-                  label: "Verifikasi",
-                  onPressed: () {},
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    child: PrimaryButton(label: 'Konfirmasi', onPressed: () {}),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

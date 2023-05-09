@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:no_trash/models/user.dart';
 import 'package:no_trash/screens/auth/login.dart';
 import 'package:no_trash/screens/screen_tree.dart';
+import 'package:no_trash/widgets/success_dialog.dart';
 
 class Auth with ChangeNotifier {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -29,6 +32,7 @@ class Auth with ChangeNotifier {
   bool _loading = false;
   String _selectedRole = '';
   String _otp = '';
+  Timer? _timer;
 
   UserModel get currentUser => _currentUser;
   String get verificationId => _verificationId;
@@ -36,6 +40,7 @@ class Auth with ChangeNotifier {
   bool get loading => _loading;
   String get selectedRole => _selectedRole;
   String get otp => _otp;
+  Timer? get timer => _timer;
 
   Auth() {
     onStart();
@@ -244,6 +249,26 @@ class Auth with ChangeNotifier {
     );
     stopLoading();
     return credential.user != null ? true : false;
+  }
+
+  Future<bool> verifyEmail() async {
+    resetError();
+    startLoading();
+    try {
+      final User user = firebaseAuth.currentUser!;
+      await user.sendEmailVerification();
+      _timer = Timer.periodic(Duration(seconds: 10), (_) {
+        _timer = null;
+        notifyListeners();
+      });
+      notifyListeners();
+      stopLoading();
+      return true;
+    } on FirebaseAuthException catch (err) {
+      setError(err.toString());
+      stopLoading();
+      return false;
+    }
   }
 
   Future<void> signOut(context) async {
