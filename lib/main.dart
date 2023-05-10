@@ -9,6 +9,7 @@ import 'package:no_trash/providers/report.dart';
 import 'package:no_trash/screens/auth/login.dart';
 import 'package:no_trash/screens/auth/otp_verification.dart';
 import 'package:no_trash/screens/auth/register.dart';
+import 'package:no_trash/screens/auth/update_profile.dart';
 import 'package:no_trash/screens/officer/location.dart';
 import 'package:no_trash/screens/reporter/location_picker.dart';
 import 'package:no_trash/screens/officer/index.dart';
@@ -70,6 +71,7 @@ class NoTrash extends StatelessWidget {
           ReportList.routeName: (context) => const ReportList(),
           LocationPicker.routeName: (context) => const LocationPicker(),
           LocationView.routeName: (context) => const LocationView(),
+          UpdateProfile.RouteName: (context) => const UpdateProfile(),
         },
       ),
     );

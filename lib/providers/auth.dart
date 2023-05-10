@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:no_trash/models/user.dart';
 import 'package:no_trash/screens/auth/login.dart';
 import 'package:no_trash/screens/screen_tree.dart';
-import 'package:no_trash/widgets/success_dialog.dart';
 
 class Auth with ChangeNotifier {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -121,6 +120,12 @@ class Auth with ChangeNotifier {
     return true;
   }
 
+  void setDefaultValues() {
+    _name.text = currentUser.name;
+    _phoneNumber.text = currentUser.phoneNumber;
+    notifyListeners();
+  }
+
   Future<void> createUserWithEmailAndPassword(context) async {
     resetError();
     startLoading();
@@ -180,6 +185,26 @@ class Auth with ChangeNotifier {
             email: _email.text,
             phoneNumber: _phoneNumber.text,
           ).toJson());
+    } catch (error) {
+      stopLoading();
+      _error = error.toString();
+    }
+  }
+
+  Future<void> updateProfile() async {
+    try {
+      startLoading();
+      await db
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .set(UserModel(
+            id: firebaseAuth.currentUser!.uid,
+            role: currentUser.role,
+            name: _name.text,
+            email: currentUser.email,
+            phoneNumber: _phoneNumber.text,
+          ).toJson());
+      stopLoading();
     } catch (error) {
       stopLoading();
       _error = error.toString();

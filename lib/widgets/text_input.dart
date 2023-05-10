@@ -9,6 +9,7 @@ class TextInput extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   final int maxLines;
+  final String? defaultValue;
 
   const TextInput({
     super.key,
@@ -17,6 +18,7 @@ class TextInput extends StatelessWidget {
     this.suffixText,
     this.maxLines = 1,
     this.label,
+    this.defaultValue,
     required this.hintText,
     required this.controller,
   });

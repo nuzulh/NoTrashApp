@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:no_trash/helpers/consts.dart';
 import 'package:no_trash/providers/auth.dart';
+import 'package:no_trash/screens/auth/update_profile.dart';
 import 'package:no_trash/widgets/inline_text.dart';
 import 'package:no_trash/widgets/layout.dart';
 import 'package:no_trash/widgets/loading.dart';
@@ -33,7 +34,10 @@ class Settings extends StatelessWidget {
                   child: Icon(Icons.person, color: Colors.white, size: 38),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    UpdateProfile.RouteName,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -144,6 +148,19 @@ class Settings extends StatelessWidget {
                   child: InlineText(
                     label: 'Kategori pengguna',
                     value: value.currentUser.role,
+                  ),
+                ),
+                Divider(color: Colors.black54, height: 1),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 12, bottom: 8),
+                    child: InlineText(
+                      label: 'Reset password',
+                      child: Icon(
+                        Icons.chevron_right_rounded,
+                      ),
+                    ),
                   ),
                 ),
                 Divider(color: Colors.black54, height: 1),
