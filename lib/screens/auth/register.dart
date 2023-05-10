@@ -89,6 +89,7 @@ class Register extends StatelessWidget {
                             auth.createUserWithEmailAndPassword(context);
                           },
                         ),
+                  const SizedBox(height: 14),
                   InkWell(
                     onTap: () => Navigator.pushReplacementNamed(
                       context,

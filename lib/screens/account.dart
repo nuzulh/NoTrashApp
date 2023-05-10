@@ -152,7 +152,40 @@ class Settings extends StatelessWidget {
                 ),
                 Divider(color: Colors.black54, height: 1),
                 InkWell(
-                  onTap: () {},
+                  onTap: () async {
+                    await value
+                        .sendPasswordResetEmail(value.currentUser.email)
+                        .then((sent) {
+                      if (sent) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => SuccessDialog(
+                            text:
+                                'Link reset password berhasil dikirim ke ${value.currentUser.email}. Silahkan cek email Anda.',
+                            buttonLabel: 'OK',
+                            onAction: () {
+                              Navigator.pop(context);
+                              value.signOut(context);
+                            },
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Row(
+                              children: [
+                                Icon(
+                                  Icons.warning_rounded,
+                                  color: Colors.white,
+                                ),
+                                Text(' ${value.error}'),
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                    });
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(top: 12, bottom: 8),
                     child: InlineText(

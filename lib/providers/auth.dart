@@ -296,6 +296,25 @@ class Auth with ChangeNotifier {
     }
   }
 
+  Future<bool> sendPasswordResetEmail(String email) async {
+    startLoading();
+    try {
+      if (email != '') {
+        await firebaseAuth.sendPasswordResetEmail(email: email);
+        stopLoading();
+        return true;
+      } else {
+        setError('Harap mengisi email');
+        stopLoading();
+        return false;
+      }
+    } on FirebaseAuthException catch (err) {
+      setError(err.message.toString());
+      stopLoading();
+      return false;
+    }
+  }
+
   Future<void> signOut(context) async {
     startLoading();
     await firebaseAuth.signOut();
